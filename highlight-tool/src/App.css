@@ -1,0 +1,189 @@
+/* ── Timer App Layout ── */
+.timer-app {
+  max-width: 440px;
+  margin: 48px auto;
+  padding: 36px 28px 32px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.timer-app h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+  color: var(--text-h);
+}
+
+.timer-display {
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  color: #7dd3fc;
+  text-shadow: 0 0 18px rgba(125, 211, 252, 0.25);
+}
+
+/* ── Controls row ── */
+.controls {
+  display: flex;
+  gap: 14px;
+}
+
+/* ── Button base ── */
+.controls button,
+.desc-prompt button,
+.btn-save {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 7px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, opacity 0.18s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.controls button:disabled,
+.desc-prompt button:disabled,
+.btn-save:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Button colours ── */
+.btn-start {
+  background: #22c55e;
+  color: #fff;
+  border-color: #16a34a;
+}
+.btn-start:not(:disabled):hover {
+  background: #16a34a;
+}
+
+.btn-stop {
+  background: #ef4444;
+  color: #fff;
+  border-color: #b91c1c;
+}
+.btn-stop:not(:disabled):hover {
+  background: #b91c1c;
+}
+
+.btn-highlight {
+  background: #38bdf8;
+  color: #fff;
+  border-color: #0284c7;
+}
+.btn-highlight:not(:disabled):hover {
+  background: #0284c7;
+}
+
+.btn-save {
+  background: #22c55e;
+  color: #fff;
+  border-color: #16a34a;
+}
+.btn-save:not(:disabled):hover {
+  background: #16a34a;
+}
+
+.btn-cancel {
+  background: #ef4444;
+  color: #fff;
+  border-color: #b91c1c;
+}
+.btn-cancel:not(:disabled):hover {
+  background: #b91c1c;
+}
+
+/* ── Session name ── */
+.session-name {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.session-name input {
+  margin-left: 8px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1.5px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text-h);
+  font-size: 1rem;
+}
+.session-name input:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+/* ── Highlights list ── */
+.highlights-list {
+  width: 100%;
+}
+.highlights-list h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--text-h);
+}
+.highlights-list ul {
+  padding-left: 18px;
+  margin: 0;
+}
+.highlights-list li {
+  margin-bottom: 6px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ── Highlight description modal ── */
+.desc-prompt {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.desc-prompt > div {
+  background: var(--card-bg-2);
+  border: 1px solid var(--border);
+  padding: 28px 36px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 300px;
+}
+.desc-prompt label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-h);
+}
+.desc-prompt input {
+  margin-left: 8px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1.5px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text-h);
+  font-size: 1rem;
+}
+.desc-prompt input:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+.desc-actions {
+  display: flex;
+  gap: 12px;
+}
