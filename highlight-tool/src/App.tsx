@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 type Highlight = {
@@ -15,21 +15,58 @@ function formatTime(ms: number) {
   return `${pad(minutes)}:${pad(seconds)}`;
 }
 
+const STORAGE_KEY_START = 'timerStartTime';
+const STORAGE_KEY_HIGHLIGHTS = 'timerHighlights';
+const STORAGE_KEY_SESSION = 'timerSessionName';
+
+function readStartTime(): number | null {
+  const v = sessionStorage.getItem(STORAGE_KEY_START);
+  return v ? parseInt(v, 10) : null;
+}
+
 function App() {
-  const [timerRunning, setTimerRunning] = useState(false);
-  // Removed unused startTime state
-  const [elapsed, setElapsed] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(() => readStartTime() !== null);
+  const [elapsed, setElapsed] = useState(() => {
+    const t = readStartTime();
+    return t !== null ? Date.now() - t : 0;
+  });
   const [intervalId, setIntervalId] = useState<number | null>(null);
-  const [highlights, setHighlights] = useState<Highlight[]>([]);
-  const [sessionName, setSessionName] = useState('');
+  const [highlights, setHighlights] = useState<Highlight[]>(() => {
+    const v = sessionStorage.getItem(STORAGE_KEY_HIGHLIGHTS);
+    return v ? JSON.parse(v) : [];
+  });
+  const [sessionName, setSessionName] = useState(
+    () => sessionStorage.getItem(STORAGE_KEY_SESSION) ?? ''
+  );
   const [showDescPrompt, setShowDescPrompt] = useState(false);
   const [pendingTimestamp, setPendingTimestamp] = useState<number | null>(null);
   const [descInput, setDescInput] = useState('');
+
+  // Re-attach interval on mount if timer was already running
+  useEffect(() => {
+    const t = readStartTime();
+    if (t !== null) {
+      const id = window.setInterval(() => setElapsed(Date.now() - t), 200);
+      setIntervalId(id);
+      return () => window.clearInterval(id);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Persist highlights and session name whenever they change
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY_HIGHLIGHTS, JSON.stringify(highlights));
+  }, [highlights]);
+
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY_SESSION, sessionName);
+  }, [sessionName]);
 
   // Timer logic
   const startTimer = () => {
     if (!timerRunning) {
       const now = Date.now();
+      sessionStorage.setItem(STORAGE_KEY_START, now.toString());
+      sessionStorage.setItem(STORAGE_KEY_HIGHLIGHTS, JSON.stringify([]));
       setElapsed(0);
       setHighlights([]);
       setTimerRunning(true);
@@ -42,6 +79,7 @@ function App() {
 
   const stopTimer = () => {
     if (timerRunning) {
+      sessionStorage.removeItem(STORAGE_KEY_START);
       setTimerRunning(false);
       if (intervalId) window.clearInterval(intervalId);
       setIntervalId(null);
