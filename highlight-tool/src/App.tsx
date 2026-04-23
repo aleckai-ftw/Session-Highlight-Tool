@@ -152,19 +152,21 @@ function App() {
 
       {showDescPrompt && (
         <div className="desc-prompt">
-          <div>
-            <label>
-              Description for {formatTime(pendingTimestamp ?? 0)}:
-              <input
-                value={descInput}
-                onChange={e => setDescInput(e.target.value)}
-                autoFocus
-              />
-            </label>
-          </div>
-          <div className="desc-actions">
-            <button className="btn-save" onClick={saveHighlight} disabled={!descInput.trim()}>Save</button>
-            <button className="btn-cancel" onClick={cancelHighlight}>Cancel</button>
+          <div className="desc-card">
+            <div>
+              <label>
+                Description for {formatTime(pendingTimestamp ?? 0)}:
+                <input
+                  value={descInput}
+                  onChange={e => setDescInput(e.target.value)}
+                  autoFocus
+                />
+              </label>
+            </div>
+            <div className="desc-actions">
+              <button className="btn-save" onClick={saveHighlight} disabled={!descInput.trim()}>Save</button>
+              <button className="btn-cancel" onClick={cancelHighlight}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

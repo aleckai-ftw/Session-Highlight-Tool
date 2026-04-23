@@ -152,32 +152,42 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
 }
-.desc-prompt > div {
+.desc-card {
   background: var(--card-bg-2);
   border: 1px solid var(--border);
-  padding: 28px 36px 24px;
+  padding: 28px 28px 24px;
   border-radius: 12px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  min-width: 300px;
+  width: 100%;
+  max-width: 380px;
+  box-sizing: border-box;
 }
 .desc-prompt label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   font-size: 1rem;
   font-weight: 500;
   color: var(--text-h);
+  width: 100%;
 }
 .desc-prompt input {
-  margin-left: 8px;
+  margin-left: 0;
   padding: 5px 10px;
   border-radius: 5px;
   border: 1.5px solid var(--border);
   background: var(--input-bg);
   color: var(--text-h);
   font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 .desc-prompt input:focus {
   outline: none;
